@@ -95,6 +95,7 @@
   <ItemGroup>
     <Content Include="File_Explorer_23583.ico" />
     <Content Include="Screenshot\screen.png" />
+    <Content Include="Screenshot\screen2.png" />
     <None Include="Resources\065-pin.png" />
     <None Include="Resources\044-menu.png" />
     <None Include="Resources\078-remove.png" />
