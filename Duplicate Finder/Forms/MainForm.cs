@@ -2,14 +2,11 @@
 using Duplicate_Finder.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -56,7 +53,7 @@ namespace Duplicate_Finder
             progressBar1.Visible = true;
             progressBar1.Style = ProgressBarStyle.Marquee;
 
-            if(AutoOptimizeButton.Checked) OptimizeScan_Click(null, EventArgs.Empty);
+            if (AutoOptimizeButton.Checked) OptimizeScan_Click(null, EventArgs.Empty);
 
             progressBar1.Style = ProgressBarStyle.Blocks;
 
@@ -100,7 +97,7 @@ namespace Duplicate_Finder
 
                 treeView1.ExpandAll();
 
-                MessageBox.Show("The process of finding duplicates has finished.", "Process Finished!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("The process of finding duplicates has finished.", "Process Finished!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -481,7 +478,7 @@ namespace Duplicate_Finder
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if(radioButton1.Checked) { radioButton2.Checked = false; }
+            if (radioButton1.Checked) { radioButton2.Checked = false; }
         }
 
         private List<FileInfo> GetCheckedFiles()
@@ -526,7 +523,7 @@ namespace Duplicate_Finder
 
         private void ActionSelectButton_Click(object sender, EventArgs e)
         {
-            if(treeView1.Nodes.Count < 1) { return; }
+            if (treeView1.Nodes.Count < 1) { return; }
 
             buttonSimulator.DisableButton(GetFilesButton);
             buttonSimulator.DisableButton(FolderBrowserButton);
@@ -611,14 +608,28 @@ namespace Duplicate_Finder
 
         private void label1_MouseDown(object sender, MouseEventArgs e) => Core.Core.MoveWindow(this, e);
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ExplorerContextMenu.RegisterContextMenu();
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             if (textBox1.Text != "") btnScan_Click(null, EventArgs.Empty);
+        }
+
+        private void PinContextMenuButton_Click(object sender, EventArgs e)
+        {
+            if (!ExplorerContextMenu.IsContextMenuRegistered())
+            {
+                if (MessageBox.Show("Add the option to quickly scan for duplicates using the explorer content menu.\n\r\n\rSelect YES if you want to add the functionality.", "Explorer Context Menu Feature", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    ExplorerContextMenu.RegisterContextMenu();
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("Remove the option to quickly scan for duplicates using the explorer content menu.\n\r\n\rSelect YES if you want to remove the functionality.", "Explorer Context Menu Feature", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    ExplorerContextMenu.UnregisterContextMenu();
+                }
+            }
+
         }
     }
 

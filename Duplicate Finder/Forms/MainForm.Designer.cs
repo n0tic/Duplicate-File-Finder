@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -49,23 +50,25 @@
             this.SaveSpaceLabel = new System.Windows.Forms.Label();
             this.AutoOptimizeButton = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.PinContextMenuButton = new System.Windows.Forms.PictureBox();
             this.VersionLabel = new System.Windows.Forms.Label();
             this.MinimizeButton = new System.Windows.Forms.PictureBox();
             this.MaximizeButton = new System.Windows.Forms.PictureBox();
             this.NameLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.GetFilesButton = new System.Windows.Forms.PictureBox();
-            this.FolderBrowserButton = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.FolderBrowserButton = new System.Windows.Forms.PictureBox();
+            this.GetFilesButton = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PinContextMenuButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimizeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximizeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GetFilesButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FolderBrowserButton)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FolderBrowserButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GetFilesButton)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -92,6 +95,7 @@
             this.TotalFilesLabel.Size = new System.Drawing.Size(55, 13);
             this.TotalFilesLabel.TabIndex = 7;
             this.TotalFilesLabel.Text = "Total files:";
+            this.toolTip1.SetToolTip(this.TotalFilesLabel, "Total files found");
             // 
             // PossibleDuplicatesLabel
             // 
@@ -101,6 +105,7 @@
             this.PossibleDuplicatesLabel.Size = new System.Drawing.Size(102, 13);
             this.PossibleDuplicatesLabel.TabIndex = 8;
             this.PossibleDuplicatesLabel.Text = "Possible Duplicates:";
+            this.toolTip1.SetToolTip(this.PossibleDuplicatesLabel, "Total possible duplicate files found");
             // 
             // ActionSelectButton
             // 
@@ -109,6 +114,8 @@
             this.ActionSelectButton.Size = new System.Drawing.Size(82, 22);
             this.ActionSelectButton.TabIndex = 9;
             this.ActionSelectButton.Text = "Process Files";
+            this.toolTip1.SetToolTip(this.ActionSelectButton, "This will run the selected option of either deleting or moving the selected files" +
+        "");
             this.ActionSelectButton.UseVisualStyleBackColor = true;
             this.ActionSelectButton.Click += new System.EventHandler(this.ActionSelectButton_Click);
             // 
@@ -139,6 +146,7 @@
             this.OptimizeButton.Size = new System.Drawing.Size(89, 23);
             this.OptimizeButton.TabIndex = 12;
             this.OptimizeButton.Text = "Optimize";
+            this.toolTip1.SetToolTip(this.OptimizeButton, "This tests the current path for the optimal buffer size to optimize the process");
             this.OptimizeButton.UseVisualStyleBackColor = true;
             this.OptimizeButton.Click += new System.EventHandler(this.OptimizeScan_Click);
             // 
@@ -150,6 +158,7 @@
             this.BufferSizeLabel.Size = new System.Drawing.Size(129, 12);
             this.BufferSizeLabel.TabIndex = 13;
             this.BufferSizeLabel.Text = "Buffersize: 1289375MB";
+            this.toolTip1.SetToolTip(this.BufferSizeLabel, "Displays the current buffer size");
             // 
             // PositiveDuplicateLabel
             // 
@@ -159,6 +168,7 @@
             this.PositiveDuplicateLabel.Size = new System.Drawing.Size(100, 13);
             this.PositiveDuplicateLabel.TabIndex = 14;
             this.PositiveDuplicateLabel.Text = "Positive Duplicates:";
+            this.toolTip1.SetToolTip(this.PositiveDuplicateLabel, "Total positive duplicate files found");
             // 
             // groupBox1
             // 
@@ -213,6 +223,7 @@
             this.radioButton1.TabIndex = 16;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Delete Selected";
+            this.toolTip1.SetToolTip(this.radioButton1, "Select this option to get an option to delete the files from the drive");
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
@@ -224,6 +235,7 @@
             this.radioButton2.Size = new System.Drawing.Size(97, 17);
             this.radioButton2.TabIndex = 17;
             this.radioButton2.Text = "Move Selected";
+            this.toolTip1.SetToolTip(this.radioButton2, "Select this option to get an option to move the files to a specific folder");
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
@@ -246,11 +258,14 @@
             this.AutoOptimizeButton.Size = new System.Drawing.Size(91, 17);
             this.AutoOptimizeButton.TabIndex = 19;
             this.AutoOptimizeButton.Text = "Auto Optimize";
+            this.toolTip1.SetToolTip(this.AutoOptimizeButton, "This will automatically start the process of testing the path for the optimal buf" +
+        "fer size");
             this.AutoOptimizeButton.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(42)))), ((int)(((byte)(82)))));
+            this.panel1.Controls.Add(this.PinContextMenuButton);
             this.panel1.Controls.Add(this.VersionLabel);
             this.panel1.Controls.Add(this.MinimizeButton);
             this.panel1.Controls.Add(this.MaximizeButton);
@@ -261,6 +276,20 @@
             this.panel1.Size = new System.Drawing.Size(799, 24);
             this.panel1.TabIndex = 21;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
+            // 
+            // PinContextMenuButton
+            // 
+            this.PinContextMenuButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PinContextMenuButton.Image = global::Duplicate_Finder.Properties.Resources._065_pin;
+            this.PinContextMenuButton.Location = new System.Drawing.Point(673, 3);
+            this.PinContextMenuButton.Name = "PinContextMenuButton";
+            this.PinContextMenuButton.Size = new System.Drawing.Size(20, 20);
+            this.PinContextMenuButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PinContextMenuButton.TabIndex = 5;
+            this.PinContextMenuButton.TabStop = false;
+            this.toolTip1.SetToolTip(this.PinContextMenuButton, "Pin this program to the \"Explorer Context Menu\", allowing you to quickly search a" +
+        " folder for duplicates.");
+            this.PinContextMenuButton.Click += new System.EventHandler(this.PinContextMenuButton_Click);
             // 
             // VersionLabel
             // 
@@ -275,6 +304,7 @@
             // 
             // MinimizeButton
             // 
+            this.MinimizeButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MinimizeButton.Image = global::Duplicate_Finder.Properties.Resources._044_menu;
             this.MinimizeButton.Location = new System.Drawing.Point(750, 3);
             this.MinimizeButton.Name = "MinimizeButton";
@@ -282,10 +312,12 @@
             this.MinimizeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.MinimizeButton.TabIndex = 3;
             this.MinimizeButton.TabStop = false;
+            this.toolTip1.SetToolTip(this.MinimizeButton, "Minimize");
             this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
             // MaximizeButton
             // 
+            this.MaximizeButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MaximizeButton.Image = global::Duplicate_Finder.Properties.Resources._078_remove;
             this.MaximizeButton.Location = new System.Drawing.Point(776, 3);
             this.MaximizeButton.Name = "MaximizeButton";
@@ -293,6 +325,7 @@
             this.MaximizeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.MaximizeButton.TabIndex = 2;
             this.MaximizeButton.TabStop = false;
+            this.toolTip1.SetToolTip(this.MaximizeButton, "Close application");
             this.MaximizeButton.Click += new System.EventHandler(this.MaximizeButton_Click);
             // 
             // NameLabel
@@ -319,34 +352,9 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
             // 
-            // GetFilesButton
-            // 
-            this.GetFilesButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GetFilesButton.Image = global::Duplicate_Finder.Properties.Resources.play_button;
-            this.GetFilesButton.Location = new System.Drawing.Point(767, 17);
-            this.GetFilesButton.Name = "GetFilesButton";
-            this.GetFilesButton.Size = new System.Drawing.Size(20, 20);
-            this.GetFilesButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.GetFilesButton.TabIndex = 6;
-            this.GetFilesButton.TabStop = false;
-            this.GetFilesButton.Click += new System.EventHandler(this.btnScan_Click);
-            // 
-            // FolderBrowserButton
-            // 
-            this.FolderBrowserButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FolderBrowserButton.Image = global::Duplicate_Finder.Properties.Resources._010_folder_30;
-            this.FolderBrowserButton.Location = new System.Drawing.Point(741, 17);
-            this.FolderBrowserButton.Name = "FolderBrowserButton";
-            this.FolderBrowserButton.Size = new System.Drawing.Size(20, 20);
-            this.FolderBrowserButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.FolderBrowserButton.TabIndex = 5;
-            this.FolderBrowserButton.TabStop = false;
-            this.FolderBrowserButton.Click += new System.EventHandler(this.FolderBrowserButton_Click);
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.TotalFilesLabel);
             this.panel3.Controls.Add(this.progressBar1);
             this.panel3.Controls.Add(this.SaveSpaceLabel);
@@ -369,15 +377,31 @@
             this.panel3.Size = new System.Drawing.Size(799, 426);
             this.panel3.TabIndex = 23;
             // 
-            // button1
+            // FolderBrowserButton
             // 
-            this.button1.Location = new System.Drawing.Point(370, 60);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.FolderBrowserButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FolderBrowserButton.Image = global::Duplicate_Finder.Properties.Resources._010_folder_30;
+            this.FolderBrowserButton.Location = new System.Drawing.Point(741, 17);
+            this.FolderBrowserButton.Name = "FolderBrowserButton";
+            this.FolderBrowserButton.Size = new System.Drawing.Size(20, 20);
+            this.FolderBrowserButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.FolderBrowserButton.TabIndex = 5;
+            this.FolderBrowserButton.TabStop = false;
+            this.toolTip1.SetToolTip(this.FolderBrowserButton, "Select a folder to scan");
+            this.FolderBrowserButton.Click += new System.EventHandler(this.FolderBrowserButton_Click);
+            // 
+            // GetFilesButton
+            // 
+            this.GetFilesButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GetFilesButton.Image = global::Duplicate_Finder.Properties.Resources.play_button;
+            this.GetFilesButton.Location = new System.Drawing.Point(767, 17);
+            this.GetFilesButton.Name = "GetFilesButton";
+            this.GetFilesButton.Size = new System.Drawing.Size(20, 20);
+            this.GetFilesButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.GetFilesButton.TabIndex = 6;
+            this.GetFilesButton.TabStop = false;
+            this.toolTip1.SetToolTip(this.GetFilesButton, "Start scan process");
+            this.GetFilesButton.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // MainForm
             // 
@@ -391,19 +415,21 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PinContextMenuButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimizeButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximizeButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GetFilesButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FolderBrowserButton)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FolderBrowserButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GetFilesButton)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -438,6 +464,7 @@
         private System.Windows.Forms.PictureBox MinimizeButton;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label VersionLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox PinContextMenuButton;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

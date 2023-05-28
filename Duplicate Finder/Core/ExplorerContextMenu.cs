@@ -1,10 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Duplicate_Finder.Core
@@ -15,6 +11,8 @@ namespace Duplicate_Finder.Core
 
         public static void RegisterContextMenu()
         {
+#pragma warning disable CS0168 // Variable is declared but never used
+#pragma warning disable CS0168 // Variable is declared but never used
             try
             {
                 // Get the path of the application executable
@@ -45,13 +43,17 @@ namespace Duplicate_Finder.Core
             catch (Exception ex)
             {
                 // Handle any other exceptions
-                //Console.WriteLine("Error: An unexpected exception occurred while registering the context menu.");
-                
+                MessageBox.Show("Error: An unexpected exception occurred while registering the context menu.");
+
             }
+#pragma warning restore CS0168 // Variable is declared but never used
+#pragma warning restore CS0168 // Variable is declared but never used
         }
 
         public static void UnregisterContextMenu()
         {
+#pragma warning disable CS0168 // Variable is declared but never used
+#pragma warning disable CS0168 // Variable is declared but never used
             try
             {
                 // Delete the registry key for the menu option
@@ -61,13 +63,24 @@ namespace Duplicate_Finder.Core
             {
                 // Handle the unauthorized access exception
                 MessageBox.Show("The application was unauthorized to perform this action.\n\r\n\rPlease restart the application as administrator and try again.", "Unauthorized!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
             }
             catch (Exception ex)
             {
                 // Handle any other exceptions
-                //Console.WriteLine("Error: An unexpected exception occurred while unregistering the context menu.");
-                
+                MessageBox.Show("Error: An unexpected exception occurred while unregistering the context menu.");
+
+            }
+#pragma warning restore CS0168 // Variable is declared but never used
+#pragma warning restore CS0168 // Variable is declared but never used
+        }
+
+        public static bool IsContextMenuRegistered()
+        {
+            using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.ClassesRoot, RegistryView.Default))
+            using (var subKey = baseKey.OpenSubKey(RegistryKeyPath))
+            {
+                return subKey != null; // If subKey is not null, the registry key exists
             }
         }
     }

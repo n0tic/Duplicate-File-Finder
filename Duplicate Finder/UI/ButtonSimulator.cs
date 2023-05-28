@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Duplicate_Finder.UI
@@ -52,7 +47,7 @@ namespace Duplicate_Finder.UI
         {
             // Reset the button's image to its original state
 
-            if(pictureBoxButton.Name == "FolderBrowserButton")
+            if (pictureBoxButton.Name == "FolderBrowserButton")
             {
                 pictureBoxButton.Image = Properties.Resources._010_folder_30;
             }
