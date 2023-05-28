@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Duplicate_Finder
+namespace Duplicate_Finder.Core
 {
     public static class Core
     {

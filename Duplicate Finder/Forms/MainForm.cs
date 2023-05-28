@@ -1,4 +1,5 @@
-﻿using Duplicate_Finder.UI;
+﻿using Duplicate_Finder.Core;
+using Duplicate_Finder.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,8 +37,8 @@ namespace Duplicate_Finder
             SaveSpaceLabel.Text = "";
             lblProgress.Text = "";
 
-            NameLabel.Text = Core.ApplicationName;
-            VersionLabel.Text = Core.Version;
+            NameLabel.Text = Core.Core.ApplicationName;
+            VersionLabel.Text = Core.Core.Version;
 
             progressBar1.Visible = false;
         }
@@ -112,35 +113,6 @@ namespace Duplicate_Finder
             FileFullPathLabel.Cursor = Cursors.Default;
             filePath = "";
         }
-
-        //private bool AreFilesIdentical(string filePath1, string filePath2)
-        //{
-        //    using (var md5 = MD5.Create())
-        //    {
-        //        using (var stream1 = File.OpenRead(filePath1))
-        //        using (var stream2 = File.OpenRead(filePath2))
-        //        {
-        //            byte[] buffer1 = new byte[bufferSize];
-        //            byte[] buffer2 = new byte[bufferSize];
-
-        //            int bytesRead1;
-        //            int bytesRead2;
-
-        //            do
-        //            {
-        //                bytesRead1 = stream1.Read(buffer1, 0, bufferSize);
-        //                bytesRead2 = stream2.Read(buffer2, 0, bufferSize);
-
-        //                if (bytesRead1 != bytesRead2 || !buffer1.Take(bytesRead1).SequenceEqual(buffer2.Take(bytesRead2)))
-        //                {
-        //                    return false;
-        //                }
-        //            } while (bytesRead1 > 0 && bytesRead2 > 0);
-
-        //            return true;
-        //        }
-        //    }
-        //}
 
         private bool AreFilesIdentical(string filePath1, string filePath2)
         {
@@ -635,7 +607,17 @@ namespace Duplicate_Finder
 
         private void MinimizeButton_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
 
-        private void label1_MouseDown(object sender, MouseEventArgs e) => Core.MoveWindow(this, e);
+        private void label1_MouseDown(object sender, MouseEventArgs e) => Core.Core.MoveWindow(this, e);
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ExplorerContextMenu.RegisterContextMenu();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "") btnScan_Click(null, EventArgs.Empty);
+        }
     }
 
     public class DuplicateGroup

@@ -57,6 +57,7 @@
             this.GetFilesButton = new System.Windows.Forms.PictureBox();
             this.FolderBrowserButton = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MinimizeButton)).BeginInit();
@@ -345,6 +346,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.TotalFilesLabel);
             this.panel3.Controls.Add(this.progressBar1);
             this.panel3.Controls.Add(this.SaveSpaceLabel);
@@ -367,6 +369,16 @@
             this.panel3.Size = new System.Drawing.Size(799, 426);
             this.panel3.TabIndex = 23;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(370, 60);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -381,6 +393,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -425,5 +438,6 @@
         private System.Windows.Forms.PictureBox MinimizeButton;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label VersionLabel;
+        private System.Windows.Forms.Button button1;
     }
 }
