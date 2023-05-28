@@ -10,6 +10,9 @@ namespace Duplicate_Finder
     public static class Core
     {
 
+        public static string ApplicationName = "Duplicate File Finder";
+        public static string Version = "v0.0.1a";
+
         #region Move Window
 
         public const int WM_NCLBUTTONDOWN = 0xA1;

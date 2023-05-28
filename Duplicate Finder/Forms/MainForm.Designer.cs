@@ -49,9 +49,10 @@
             this.SaveSpaceLabel = new System.Windows.Forms.Label();
             this.AutoOptimizeButton = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.VersionLabel = new System.Windows.Forms.Label();
             this.MinimizeButton = new System.Windows.Forms.PictureBox();
             this.MaximizeButton = new System.Windows.Forms.PictureBox();
+            this.NameLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.GetFilesButton = new System.Windows.Forms.PictureBox();
             this.FolderBrowserButton = new System.Windows.Forms.PictureBox();
@@ -249,9 +250,10 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(42)))), ((int)(((byte)(82)))));
+            this.panel1.Controls.Add(this.VersionLabel);
             this.panel1.Controls.Add(this.MinimizeButton);
             this.panel1.Controls.Add(this.MaximizeButton);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.NameLabel);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
@@ -259,17 +261,16 @@
             this.panel1.TabIndex = 21;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
             // 
-            // label1
+            // VersionLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(37, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(171, 21);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Duplicate File Finder";
-            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
+            this.VersionLabel.AutoSize = true;
+            this.VersionLabel.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VersionLabel.ForeColor = System.Drawing.Color.White;
+            this.VersionLabel.Location = new System.Drawing.Point(204, 10);
+            this.VersionLabel.Name = "VersionLabel";
+            this.VersionLabel.Size = new System.Drawing.Size(129, 15);
+            this.VersionLabel.TabIndex = 4;
+            this.VersionLabel.Text = "Duplicate File Finder";
             // 
             // MinimizeButton
             // 
@@ -292,6 +293,18 @@
             this.MaximizeButton.TabIndex = 2;
             this.MaximizeButton.TabStop = false;
             this.MaximizeButton.Click += new System.EventHandler(this.MaximizeButton_Click);
+            // 
+            // NameLabel
+            // 
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NameLabel.ForeColor = System.Drawing.Color.White;
+            this.NameLabel.Location = new System.Drawing.Point(37, 3);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(171, 21);
+            this.NameLabel.TabIndex = 1;
+            this.NameLabel.Text = "Duplicate File Finder";
+            this.NameLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
             // 
             // pictureBox1
             // 
@@ -407,9 +420,10 @@
         private System.Windows.Forms.CheckBox AutoOptimizeButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.PictureBox MaximizeButton;
         private System.Windows.Forms.PictureBox MinimizeButton;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label VersionLabel;
     }
 }

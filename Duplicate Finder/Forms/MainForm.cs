@@ -36,6 +36,9 @@ namespace Duplicate_Finder
             SaveSpaceLabel.Text = "";
             lblProgress.Text = "";
 
+            NameLabel.Text = Core.ApplicationName;
+            VersionLabel.Text = Core.Version;
+
             progressBar1.Visible = false;
         }
 
