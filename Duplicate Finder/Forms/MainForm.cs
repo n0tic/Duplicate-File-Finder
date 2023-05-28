@@ -617,14 +617,14 @@ namespace Duplicate_Finder
         {
             if (!ExplorerContextMenu.IsContextMenuRegistered())
             {
-                if (MessageBox.Show("Add the option to quickly scan for duplicates using the explorer content menu.\n\r\n\rSelect YES if you want to add the functionality.", "Explorer Context Menu Feature", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Add the option to quickly scan for duplicates using the explorer context menu.\n\r\n\rSelect YES if you want to add the functionality.", "Explorer Context Menu Feature", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     ExplorerContextMenu.RegisterContextMenu();
                 }
             }
             else
             {
-                if (MessageBox.Show("Remove the option to quickly scan for duplicates using the explorer content menu.\n\r\n\rSelect YES if you want to remove the functionality.", "Explorer Context Menu Feature", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Remove the option to quickly scan for duplicates using the explorer context menu.\n\r\n\rSelect YES if you want to remove the functionality.", "Explorer Context Menu Feature", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     ExplorerContextMenu.UnregisterContextMenu();
                 }
