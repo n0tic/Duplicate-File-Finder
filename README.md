@@ -29,3 +29,13 @@ This project is licensed under the [MIT License](LICENSE).
 © [N0tiC](http://bytevaultstudio.se/) at ByteValut Studio
 
 If you make modifications or use my code, please credit. It's always nice to see =)
+
+------------------------------------------------------------------------------------------
+Icon: 
+
+[Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+
+[File Explorer](https://icon-icons.com/icon/file-explorer/23583)
+
+[dAKirby309 (Michael)](https://icon-icons.com/users/nDQNYt3VY66I2rNuvCwNa/icon-sets/)
+
