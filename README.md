@@ -1,8 +1,8 @@
-# Duplicate Finder
+# Duplicate File Finder
 
-Duplicate Finder is a powerful tool designed to help you find and manage duplicate files on your computer. It provides a user-friendly interface that allows you to easily scan a selected folder for duplicate files and presents the results in a clear and organized manner.
+Duplicate File Finder is a powerful tool designed to help you find and manage duplicate files on your computer. It provides a user-friendly interface that allows you to easily scan a selected folder for duplicate files and presents the results in a clear and organized manner.
 
-![Screenshot](https://github.com/n0tic/Duplicate-Finder/raw/master/Duplicate%20Finder/Screenshot/screen.png)
+![Screenshot](https://github.com/n0tic/Duplicate-File-Finder/raw/master/Duplicate%20Finder/Screenshot/screen.png)
 
 ## Key Features
 
@@ -16,9 +16,9 @@ Duplicate Finder is a powerful tool designed to help you find and manage duplica
 - **User-friendly interface**: Intuitive controls and a user-friendly interface.
 - **Explorer Context Menu Option**: Right-click on any folder in Windows Explorer to quickly initiate a scan for duplicate files within that location. This convenient context menu option simplifies the process of identifying and managing duplicate files directly from the file explorer.
 
-## Why Use Duplicate Finder?
+## Why Use Duplicate File Finder?
 
-Duplicate Finder is a valuable tool for anyone looking to declutter their storage space and eliminate unnecessary duplicate files. Whether you're a home user managing personal files or a professional handling large data sets, Duplicate Finder streamlines the process of identifying and managing duplicate files, saving you time and improving your system's efficiency.
+Duplicate File Finder is a valuable tool for anyone looking to declutter their storage space and eliminate unnecessary duplicate files. Whether you're a home user managing personal files or a professional handling large data sets, Duplicate Finder streamlines the process of identifying and managing duplicate files, saving you time and improving your system's efficiency.
 
 ## License
 
