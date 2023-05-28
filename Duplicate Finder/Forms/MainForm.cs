@@ -99,6 +99,8 @@ namespace Duplicate_Finder
                 progressBar1.Visible = true;
 
                 treeView1.ExpandAll();
+
+                MessageBox.Show("The process of finding duplicates has finished.", "Process Finished!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
