@@ -2,8 +2,9 @@
 
 Duplicate File Finder is a powerful tool designed to help you find and manage duplicate files on your computer. It provides a user-friendly interface that allows you to easily scan a selected folder for duplicate files and presents the results in a clear and organized manner.
 
-## Key Features
+## Key Features 
 
+- **Super Lightweight**: Super small and one file only. No third party modules included or needed. (195 KB (200 192 bytes) as of writing this readme.)
 - **Scan and detect duplicate files**: Easily identify duplicate files in a selected folder or directory.
 - **Organized groups**: Display duplicate files in organized groups for easy identification.
 - **Advanced file comparison**: Compare files based on file size and content using MD5 hashing.
