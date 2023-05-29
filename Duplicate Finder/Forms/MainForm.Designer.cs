@@ -50,7 +50,7 @@
             this.SaveSpaceLabel = new System.Windows.Forms.Label();
             this.AutoOptimizeButton = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.PinContextMenuButton = new System.Windows.Forms.PictureBox();
+            this.SettingsButton = new System.Windows.Forms.PictureBox();
             this.VersionLabel = new System.Windows.Forms.Label();
             this.MinimizeButton = new System.Windows.Forms.PictureBox();
             this.MaximizeButton = new System.Windows.Forms.PictureBox();
@@ -62,7 +62,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PinContextMenuButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimizeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximizeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -265,7 +265,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(42)))), ((int)(((byte)(82)))));
-            this.panel1.Controls.Add(this.PinContextMenuButton);
+            this.panel1.Controls.Add(this.SettingsButton);
             this.panel1.Controls.Add(this.VersionLabel);
             this.panel1.Controls.Add(this.MinimizeButton);
             this.panel1.Controls.Add(this.MaximizeButton);
@@ -277,19 +277,18 @@
             this.panel1.TabIndex = 21;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
             // 
-            // PinContextMenuButton
+            // SettingsButton
             // 
-            this.PinContextMenuButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PinContextMenuButton.Image = global::Duplicate_Finder.Properties.Resources._065_pin;
-            this.PinContextMenuButton.Location = new System.Drawing.Point(673, 3);
-            this.PinContextMenuButton.Name = "PinContextMenuButton";
-            this.PinContextMenuButton.Size = new System.Drawing.Size(20, 20);
-            this.PinContextMenuButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PinContextMenuButton.TabIndex = 5;
-            this.PinContextMenuButton.TabStop = false;
-            this.toolTip1.SetToolTip(this.PinContextMenuButton, "Pin this program to the \"Explorer Context Menu\", allowing you to quickly search a" +
-        " folder for duplicates.");
-            this.PinContextMenuButton.Click += new System.EventHandler(this.PinContextMenuButton_Click);
+            this.SettingsButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SettingsButton.Image = global::Duplicate_Finder.Properties.Resources._003_cogwheel;
+            this.SettingsButton.Location = new System.Drawing.Point(673, 3);
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Size = new System.Drawing.Size(20, 20);
+            this.SettingsButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.SettingsButton.TabIndex = 5;
+            this.SettingsButton.TabStop = false;
+            this.toolTip1.SetToolTip(this.SettingsButton, "Open the settings window");
+            this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // VersionLabel
             // 
@@ -372,7 +371,7 @@
             this.panel3.Controls.Add(this.lblProgress);
             this.panel3.Controls.Add(this.BufferSizeLabel);
             this.panel3.Controls.Add(this.OptimizeButton);
-            this.panel3.Location = new System.Drawing.Point(1, 28);
+            this.panel3.Location = new System.Drawing.Point(1, 26);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(799, 426);
             this.panel3.TabIndex = 23;
@@ -407,7 +406,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(801, 455);
+            this.ClientSize = new System.Drawing.Size(801, 453);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -422,7 +421,7 @@
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PinContextMenuButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SettingsButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimizeButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximizeButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -464,7 +463,7 @@
         private System.Windows.Forms.PictureBox MinimizeButton;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label VersionLabel;
-        private System.Windows.Forms.PictureBox PinContextMenuButton;
+        private System.Windows.Forms.PictureBox SettingsButton;
         private System.Windows.Forms.ToolTip toolTip1;
     }
 }

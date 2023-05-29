@@ -1,4 +1,5 @@
 ﻿using Duplicate_Finder.Core;
+using Duplicate_Finder.Forms;
 using Duplicate_Finder.UI;
 using System;
 using System.Collections.Generic;
@@ -613,23 +614,12 @@ namespace Duplicate_Finder
             if (textBox1.Text != "") btnScan_Click(null, EventArgs.Empty);
         }
 
-        private void PinContextMenuButton_Click(object sender, EventArgs e)
+        private void SettingsButton_Click(object sender, EventArgs e)
         {
-            if (!ExplorerContextMenu.IsContextMenuRegistered())
+            using(SettingsForm form = new SettingsForm(this))
             {
-                if (MessageBox.Show("Add the option to quickly scan for duplicates using the explorer context menu.\n\r\n\rSelect YES if you want to add the functionality.", "Explorer Context Menu Feature", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    ExplorerContextMenu.RegisterContextMenu();
-                }
+                form.ShowDialog();
             }
-            else
-            {
-                if (MessageBox.Show("Remove the option to quickly scan for duplicates using the explorer context menu.\n\r\n\rSelect YES if you want to remove the functionality.", "Explorer Context Menu Feature", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    ExplorerContextMenu.UnregisterContextMenu();
-                }
-            }
-
         }
     }
 

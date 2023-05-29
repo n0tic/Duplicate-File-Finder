@@ -1,4 +1,7 @@
-﻿using Microsoft.Win32;
+﻿#pragma warning disable CS0168 // Variable is declared but never used
+#pragma warning disable CS0168 // Variable is declared but never used
+
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -11,8 +14,6 @@ namespace Duplicate_Finder.Core
 
         public static void RegisterContextMenu()
         {
-#pragma warning disable CS0168 // Variable is declared but never used
-#pragma warning disable CS0168 // Variable is declared but never used
             try
             {
                 // Get the path of the application executable
@@ -32,28 +33,25 @@ namespace Duplicate_Finder.Core
                     {
                         commandKey.SetValue(null, command);
                     }
+
+                    // Set the icon for the menu option
+                    key.SetValue("DefaultIcon", $"{appPath},0");
                 }
             }
             catch (UnauthorizedAccessException ex)
             {
                 // Handle the unauthorized access exception
                 MessageBox.Show("The application was unauthorized to perform this action.\n\r\n\rPlease restart the application as administrator and try again.", "Unauthorized!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
             catch (Exception ex)
             {
                 // Handle any other exceptions
                 MessageBox.Show("Error: An unexpected exception occurred while registering the context menu.");
-
             }
-#pragma warning restore CS0168 // Variable is declared but never used
-#pragma warning restore CS0168 // Variable is declared but never used
         }
 
         public static void UnregisterContextMenu()
         {
-#pragma warning disable CS0168 // Variable is declared but never used
-#pragma warning disable CS0168 // Variable is declared but never used
             try
             {
                 // Delete the registry key for the menu option
@@ -63,16 +61,12 @@ namespace Duplicate_Finder.Core
             {
                 // Handle the unauthorized access exception
                 MessageBox.Show("The application was unauthorized to perform this action.\n\r\n\rPlease restart the application as administrator and try again.", "Unauthorized!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
             catch (Exception ex)
             {
                 // Handle any other exceptions
                 MessageBox.Show("Error: An unexpected exception occurred while unregistering the context menu.");
-
             }
-#pragma warning restore CS0168 // Variable is declared but never used
-#pragma warning restore CS0168 // Variable is declared but never used
         }
 
         public static bool IsContextMenuRegistered()
