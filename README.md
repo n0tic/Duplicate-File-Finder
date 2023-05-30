@@ -21,6 +21,7 @@ Duplicate File Finder is a valuable tool for anyone looking to declutter their s
 
 ![Screenshot](https://github.com/n0tic/Duplicate-File-Finder/raw/master/Duplicate%20Finder/Screenshot/screen.png)
 ![Screenshot](https://github.com/n0tic/Duplicate-File-Finder/raw/master/Duplicate%20Finder/Screenshot/screen2.png)
+![Screenshot](https://github.com/n0tic/Duplicate-File-Finder/raw/master/Duplicate%20Finder/Screenshot/screen3.png)
 
 ## License
 
