@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <Content Include="Screenshot\screen3.png" />
     <None Include="Resources\003-cogwheel.png" />
     <None Include="Resources\Dual Ring-0.4s-204px.gif" />
     <None Include="Resources\stop.png" />

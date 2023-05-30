@@ -26,10 +26,9 @@ namespace Duplicate_Finder.Module
 
                         DialogResult result = folderDialog.ShowDialog();
 
-                        MessageBox.Show("You are about to initiate a performance-intensive disk test. This process may temporarily freeze the program. Please wait while the test is being conducted...", "Demanding Task Ahead", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                         if (result == DialogResult.OK)
                         {
+                            MessageBox.Show("You are about to initiate a performance-intensive disk test. This process may temporarily freeze the program. Please wait while the test is being conducted...", "Demanding Task Ahead", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             path = folderDialog.SelectedPath;
                         }
                         else return -1;
