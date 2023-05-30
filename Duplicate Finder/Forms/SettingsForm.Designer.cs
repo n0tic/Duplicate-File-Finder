@@ -37,13 +37,13 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.BufferSizeNumber = new System.Windows.Forms.NumericUpDown();
-            this.AutoOptimizeButton = new System.Windows.Forms.CheckBox();
+            this.AutoOptimizeCheckbox = new System.Windows.Forms.CheckBox();
             this.OptimizeButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.MBNumber = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.HiddenFilesCheckbox = new System.Windows.Forms.CheckBox();
-            this.FilesUnderCheckbox = new System.Windows.Forms.CheckBox();
+            this.FileSizeUnderCheckbox = new System.Windows.Forms.CheckBox();
             this.ZeroByteFileCheckbox = new System.Windows.Forms.CheckBox();
             this.ReadOnlyFilesCheckbox = new System.Windows.Forms.CheckBox();
             this.SystemFilesCheckbox = new System.Windows.Forms.CheckBox();
@@ -83,8 +83,8 @@
             // 
             // SaveSettingsButton
             // 
-            this.SaveSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(42)))), ((int)(((byte)(82)))));
-            this.SaveSettingsButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(42)))), ((int)(((byte)(82)))));
+            this.SaveSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(184)))), ((int)(((byte)(222)))));
+            this.SaveSettingsButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(203)))), ((int)(((byte)(233)))));
             this.SaveSettingsButton.FlatAppearance.BorderSize = 2;
             this.SaveSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveSettingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -95,6 +95,7 @@
             this.SaveSettingsButton.TabIndex = 21;
             this.SaveSettingsButton.Text = "Save Settings";
             this.SaveSettingsButton.UseVisualStyleBackColor = false;
+            this.SaveSettingsButton.Click += new System.EventHandler(this.SaveSettingsButton_Click);
             // 
             // groupBox5
             // 
@@ -134,7 +135,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.groupBox4);
-            this.groupBox3.Controls.Add(this.AutoOptimizeButton);
+            this.groupBox3.Controls.Add(this.AutoOptimizeCheckbox);
             this.groupBox3.Controls.Add(this.OptimizeButton);
             this.groupBox3.Location = new System.Drawing.Point(3, 136);
             this.groupBox3.Name = "groupBox3";
@@ -175,19 +176,17 @@
             0,
             0});
             // 
-            // AutoOptimizeButton
+            // AutoOptimizeCheckbox
             // 
-            this.AutoOptimizeButton.AutoSize = true;
-            this.AutoOptimizeButton.Checked = true;
-            this.AutoOptimizeButton.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AutoOptimizeButton.Location = new System.Drawing.Point(9, 19);
-            this.AutoOptimizeButton.Name = "AutoOptimizeButton";
-            this.AutoOptimizeButton.Size = new System.Drawing.Size(91, 17);
-            this.AutoOptimizeButton.TabIndex = 19;
-            this.AutoOptimizeButton.Text = "Auto Optimize";
-            this.toolTip1.SetToolTip(this.AutoOptimizeButton, "This automizes the optimization feature before starting the Content scan. It does" +
+            this.AutoOptimizeCheckbox.AutoSize = true;
+            this.AutoOptimizeCheckbox.Location = new System.Drawing.Point(9, 19);
+            this.AutoOptimizeCheckbox.Name = "AutoOptimizeCheckbox";
+            this.AutoOptimizeCheckbox.Size = new System.Drawing.Size(91, 17);
+            this.AutoOptimizeCheckbox.TabIndex = 19;
+            this.AutoOptimizeCheckbox.Text = "Auto Optimize";
+            this.toolTip1.SetToolTip(this.AutoOptimizeCheckbox, "This automizes the optimization feature before starting the Content scan. It does" +
         " a system test before initiating the file scan.");
-            this.AutoOptimizeButton.UseVisualStyleBackColor = true;
+            this.AutoOptimizeCheckbox.UseVisualStyleBackColor = true;
             // 
             // OptimizeButton
             // 
@@ -201,13 +200,14 @@
             this.OptimizeButton.TabIndex = 12;
             this.OptimizeButton.Text = "Optimize";
             this.OptimizeButton.UseVisualStyleBackColor = false;
+            this.OptimizeButton.Click += new System.EventHandler(this.OptimizeButton_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.MBNumber);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.HiddenFilesCheckbox);
-            this.groupBox2.Controls.Add(this.FilesUnderCheckbox);
+            this.groupBox2.Controls.Add(this.FileSizeUnderCheckbox);
             this.groupBox2.Controls.Add(this.ZeroByteFileCheckbox);
             this.groupBox2.Controls.Add(this.ReadOnlyFilesCheckbox);
             this.groupBox2.Controls.Add(this.SystemFilesCheckbox);
@@ -243,8 +243,6 @@
             // HiddenFilesCheckbox
             // 
             this.HiddenFilesCheckbox.AutoSize = true;
-            this.HiddenFilesCheckbox.Checked = true;
-            this.HiddenFilesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.HiddenFilesCheckbox.Location = new System.Drawing.Point(8, 42);
             this.HiddenFilesCheckbox.Name = "HiddenFilesCheckbox";
             this.HiddenFilesCheckbox.Size = new System.Drawing.Size(81, 17);
@@ -252,23 +250,19 @@
             this.HiddenFilesCheckbox.Text = "Hidden files";
             this.HiddenFilesCheckbox.UseVisualStyleBackColor = true;
             // 
-            // FilesUnderCheckbox
+            // FileSizeUnderCheckbox
             // 
-            this.FilesUnderCheckbox.AutoSize = true;
-            this.FilesUnderCheckbox.Checked = true;
-            this.FilesUnderCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.FilesUnderCheckbox.Location = new System.Drawing.Point(120, 42);
-            this.FilesUnderCheckbox.Name = "FilesUnderCheckbox";
-            this.FilesUnderCheckbox.Size = new System.Drawing.Size(90, 17);
-            this.FilesUnderCheckbox.TabIndex = 26;
-            this.FilesUnderCheckbox.Text = "Filesize under";
-            this.FilesUnderCheckbox.UseVisualStyleBackColor = true;
+            this.FileSizeUnderCheckbox.AutoSize = true;
+            this.FileSizeUnderCheckbox.Location = new System.Drawing.Point(120, 42);
+            this.FileSizeUnderCheckbox.Name = "FileSizeUnderCheckbox";
+            this.FileSizeUnderCheckbox.Size = new System.Drawing.Size(90, 17);
+            this.FileSizeUnderCheckbox.TabIndex = 26;
+            this.FileSizeUnderCheckbox.Text = "Filesize under";
+            this.FileSizeUnderCheckbox.UseVisualStyleBackColor = true;
             // 
             // ZeroByteFileCheckbox
             // 
             this.ZeroByteFileCheckbox.AutoSize = true;
-            this.ZeroByteFileCheckbox.Checked = true;
-            this.ZeroByteFileCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ZeroByteFileCheckbox.Location = new System.Drawing.Point(8, 19);
             this.ZeroByteFileCheckbox.Name = "ZeroByteFileCheckbox";
             this.ZeroByteFileCheckbox.Size = new System.Drawing.Size(92, 17);
@@ -279,8 +273,6 @@
             // ReadOnlyFilesCheckbox
             // 
             this.ReadOnlyFilesCheckbox.AutoSize = true;
-            this.ReadOnlyFilesCheckbox.Checked = true;
-            this.ReadOnlyFilesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ReadOnlyFilesCheckbox.Location = new System.Drawing.Point(214, 18);
             this.ReadOnlyFilesCheckbox.Name = "ReadOnlyFilesCheckbox";
             this.ReadOnlyFilesCheckbox.Size = new System.Drawing.Size(95, 17);
@@ -291,8 +283,6 @@
             // SystemFilesCheckbox
             // 
             this.SystemFilesCheckbox.AutoSize = true;
-            this.SystemFilesCheckbox.Checked = true;
-            this.SystemFilesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.SystemFilesCheckbox.Location = new System.Drawing.Point(120, 19);
             this.SystemFilesCheckbox.Name = "SystemFilesCheckbox";
             this.SystemFilesCheckbox.Size = new System.Drawing.Size(81, 17);
@@ -316,8 +306,6 @@
             // NameCheckbox
             // 
             this.NameCheckbox.AutoSize = true;
-            this.NameCheckbox.Checked = true;
-            this.NameCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.NameCheckbox.Location = new System.Drawing.Point(8, 19);
             this.NameCheckbox.Name = "NameCheckbox";
             this.NameCheckbox.Size = new System.Drawing.Size(54, 17);
@@ -338,8 +326,6 @@
             // ModifiedDateCheckbox
             // 
             this.ModifiedDateCheckbox.AutoSize = true;
-            this.ModifiedDateCheckbox.Checked = true;
-            this.ModifiedDateCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ModifiedDateCheckbox.Location = new System.Drawing.Point(120, 19);
             this.ModifiedDateCheckbox.Name = "ModifiedDateCheckbox";
             this.ModifiedDateCheckbox.Size = new System.Drawing.Size(90, 17);
@@ -350,8 +336,6 @@
             // SizeCheckbox
             // 
             this.SizeCheckbox.AutoSize = true;
-            this.SizeCheckbox.Checked = true;
-            this.SizeCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.SizeCheckbox.Location = new System.Drawing.Point(68, 19);
             this.SizeCheckbox.Name = "SizeCheckbox";
             this.SizeCheckbox.Size = new System.Drawing.Size(46, 17);
@@ -361,7 +345,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(42)))), ((int)(((byte)(82)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(132)))), ((int)(((byte)(197)))));
             this.panel1.Controls.Add(this.ExitButton);
             this.panel1.Controls.Add(this.NameLabel);
             this.panel1.Location = new System.Drawing.Point(1, -1);
@@ -410,6 +394,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SettingsForm";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.panel3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -435,7 +420,7 @@
         private System.Windows.Forms.CheckBox ModifiedDateCheckbox;
         private System.Windows.Forms.CheckBox SizeCheckbox;
         private System.Windows.Forms.CheckBox NameCheckbox;
-        private System.Windows.Forms.CheckBox AutoOptimizeButton;
+        private System.Windows.Forms.CheckBox AutoOptimizeCheckbox;
         private System.Windows.Forms.Button OptimizeButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox ExitButton;
@@ -444,7 +429,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown MBNumber;
         private System.Windows.Forms.CheckBox HiddenFilesCheckbox;
-        private System.Windows.Forms.CheckBox FilesUnderCheckbox;
+        private System.Windows.Forms.CheckBox FileSizeUnderCheckbox;
         private System.Windows.Forms.CheckBox ZeroByteFileCheckbox;
         private System.Windows.Forms.CheckBox ReadOnlyFilesCheckbox;
         private System.Windows.Forms.CheckBox SystemFilesCheckbox;

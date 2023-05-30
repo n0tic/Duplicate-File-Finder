@@ -6,7 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace Duplicate_Finder.Core
+namespace Duplicate_Finder.Module
 {
     public static class ExplorerContextMenu
     {
@@ -18,6 +18,12 @@ namespace Duplicate_Finder.Core
             {
                 // Get the path of the application executable
                 string appPath = Process.GetCurrentProcess().MainModule.FileName;
+
+                // Get the path to the application's icon
+                string appIconPath = appPath;
+
+                // Append ",0" to the icon path to specify the first icon index
+                appIconPath += ",0";
 
                 // Set the command with the application path and "%1" placeholder
                 string command = $"\"{appPath}\" \"%1\"";
@@ -34,8 +40,8 @@ namespace Duplicate_Finder.Core
                         commandKey.SetValue(null, command);
                     }
 
-                    // Set the icon for the menu option
-                    key.SetValue("DefaultIcon", $"{appPath},0");
+                    // Set the application icon as the icon for the context menu
+                    key.SetValue("DefaultIcon", appIconPath);
                 }
             }
             catch (UnauthorizedAccessException ex)

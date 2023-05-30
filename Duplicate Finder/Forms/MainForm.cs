@@ -1,6 +1,7 @@
 ﻿using Duplicate_Finder.Core;
+using Duplicate_Finder.Data;
 using Duplicate_Finder.Forms;
-using Duplicate_Finder.UI;
+using Duplicate_Finder.Module;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,15 +12,19 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Duplicate_Finder
 {
     public partial class MainForm : Form
     {
+        public SettingsData settings;
+
+        
         ButtonSimulator buttonSimulator = new ButtonSimulator();
         CancellationTokenSource cancellationTokenSource;
         List<DuplicateGroup> duplicateGroups;
-        int bufferSize = 1024;
+        public int bufferSize = 1024;
 
         string filePath = "";
 
@@ -31,7 +36,6 @@ namespace Duplicate_Finder
 
             duplicateGroups = new List<DuplicateGroup>();
 
-            BufferSizeLabel.Text = $"Buffersize: {bufferSize}";
             SaveSpaceLabel.Text = "";
             lblProgress.Text = "";
 
@@ -39,6 +43,26 @@ namespace Duplicate_Finder
             VersionLabel.Text = Core.Core.Version;
 
             progressBar1.Visible = false;
+
+            settings = SettingsData.LoadSettings();
+            if(settings == null) settings = new SettingsData();
+
+            treeView1.Select();
+            treeView1.Focus();
+
+            LoadingIndicator.Visible = false;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "")
+            {
+                btnScan_Click(null, EventArgs.Empty);
+            }
+            else
+            {
+                textBox1.Text = "Waiting for a directory path...";
+            }
         }
 
         private async void btnScan_Click(object sender, EventArgs e)
@@ -51,17 +75,17 @@ namespace Duplicate_Finder
                 return;
             }
 
+            LoadingIndicator.Visible = true;
             progressBar1.Visible = true;
             progressBar1.Style = ProgressBarStyle.Marquee;
 
-            if (AutoOptimizeButton.Checked) OptimizeScan_Click(null, EventArgs.Empty);
+            if (settings.Search_AutoOptimize) OptimizeScan_Click(null, EventArgs.Empty);
 
-            progressBar1.Style = ProgressBarStyle.Blocks;
-
-            buttonSimulator.DisableButton(GetFilesButton);
+            buttonSimulator.DisableButton(GetFilesButton, true);
+            buttonSimulator.EnableButton(CancelButton);
             buttonSimulator.DisableButton(FolderBrowserButton);
 
-            OptimizeButton.Enabled = false;
+            buttonSimulator.DisableButton(SettingsButton);
             ActionSelectButton.Enabled = false;
 
             ResetTreeView();
@@ -88,15 +112,24 @@ namespace Duplicate_Finder
             }
             finally
             {
+                LoadingIndicator.Visible = false;
+
+                buttonSimulator.DisableButton(CancelButton);
                 buttonSimulator.EnableButton(GetFilesButton);
                 buttonSimulator.EnableButton(FolderBrowserButton);
 
-                OptimizeButton.Enabled = true;
+                buttonSimulator.EnableButton(SettingsButton);
                 ActionSelectButton.Enabled = true;
 
-                progressBar1.Visible = true;
+                progressBar1.Visible = false;
+                progressBar1.Value = 0;
 
                 treeView1.ExpandAll();
+
+                if(treeView1.Nodes.Count < 1)
+                {
+                    treeView1.Nodes.Add(new TreeNode("No duplicates found!"));
+                }
 
                 MessageBox.Show("The process of finding duplicates has finished.", "Process Finished!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -157,13 +190,47 @@ namespace Duplicate_Finder
             progressBar1.Invoke((MethodInvoker)(() =>
             {
                 progressBar1.Maximum = files.Count;
-                TotalFilesLabel.Text = $"Total Files Found: {files.Count}";
+                TotalFilesLabel.Text = $"Total Files Found:{Environment.NewLine}{files.Count}";
+                progressBar1.Style = ProgressBarStyle.Blocks;
             }));
 
             List<DuplicateGroup> potentialDuplicates = new List<DuplicateGroup>();
 
             foreach (FileInfo fileInfo in files)
             {
+
+                if(settings.Search_Ignore_FileSizeUnder)
+                {
+                    if(fileInfo.Length < 1048576 * settings.Search_Ignore_FileSizeUnderMB)
+                    {
+                        continue;
+                    }
+                }
+
+                if (settings.Search_Ignore_ZeroByteFile)
+                {
+                    if (fileInfo.Length < 1)
+                    {
+                        continue;
+                    }
+                }
+
+                if (settings.Search_Ignore_HiddenFiles)
+                {
+                    if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                    {
+                        continue;
+                    }
+                }
+
+                if (settings.Search_Ignore_SystemFiles)
+                {
+                    if (fileInfo.FullName.StartsWith(settings.windowsDirectory, StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+                }
+
                 if (cancellationToken.IsCancellationRequested)
                 {
                     // The scanning process was cancelled
@@ -249,12 +316,12 @@ namespace Duplicate_Finder
 
             PossibleDuplicatesLabel.Invoke((MethodInvoker)(() =>
             {
-                PossibleDuplicatesLabel.Text = $"Possible Duplicates: {totalPossibleDuplicates}";
+                PossibleDuplicatesLabel.Text = $"Possible Duplicates:{Environment.NewLine}{totalPossibleDuplicates}";
             }));
 
             PositiveDuplicateLabel.Invoke((MethodInvoker)(() =>
             {
-                PositiveDuplicateLabel.Text = $"Positive Duplicates: {totalPositiveDuplicates}";
+                PositiveDuplicateLabel.Text = $"Positive Duplicates:{Environment.NewLine}{totalPositiveDuplicates}";
             }));
         }
 
@@ -371,7 +438,7 @@ namespace Duplicate_Finder
             buttonSimulator.DisableButton(GetFilesButton);
             buttonSimulator.DisableButton(FolderBrowserButton);
 
-            OptimizeButton.Enabled = false;
+            buttonSimulator.DisableButton(SettingsButton);
             ActionSelectButton.Enabled = false;
 
             using (var folderDialog = new FolderBrowserDialog())
@@ -388,87 +455,18 @@ namespace Duplicate_Finder
             buttonSimulator.EnableButton(GetFilesButton);
             buttonSimulator.EnableButton(FolderBrowserButton);
 
-            OptimizeButton.Enabled = true;
+            buttonSimulator.EnableButton(SettingsButton);
             ActionSelectButton.Enabled = true;
         }
 
         private void OptimizeScan_Click(object sender, EventArgs e)
         {
-            string directoryPath = textBox1.Text;
+            var tmpBuffer = BufferSizeTest.DOBufferSizeTest(textBox1.Text);
 
-            if (!Directory.Exists(directoryPath))
+            if(tmpBuffer > 0)
             {
-                MessageBox.Show("Invalid directory path.");
-                return;
-            }
-
-            string testFilePath = Path.Combine(directoryPath, "testfile.txt");
-
-            int[] bufferSizes = { 4 * 1024, 8 * 1024, 16 * 1024, 32 * 1024, 64 * 1024, 128 * 1024 };
-            long bestElapsedTime = long.MaxValue;
-            int bestBufferSize = 0;
-
-            foreach (int bufferSize in bufferSizes)
-            {
-                Stopwatch stopwatch = new Stopwatch();
-
-                try
-                {
-                    bool createTestFile = !File.Exists(testFilePath);
-
-                    if (createTestFile)
-                    {
-                        // Create a new temporary test file
-                        using (FileStream fileStream = new FileStream(testFilePath, FileMode.Create, FileAccess.Write))
-                        {
-                            // Write some data to the test file if needed
-                        }
-                    }
-
-                    using (FileStream fileStream = new FileStream(testFilePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize))
-                    {
-                        byte[] buffer = new byte[bufferSize];
-
-                        stopwatch.Start();
-
-                        int bytesRead;
-                        while ((bytesRead = fileStream.Read(buffer, 0, bufferSize)) > 0)
-                        {
-                            // Perform any additional processing here if needed
-                        }
-                    }
-                }
-                catch (IOException ex)
-                {
-                    // Handle IOException, such as file access errors
-                    MessageBox.Show($"Error accessing file: {ex.Message}");
-                }
-                catch (Exception ex)
-                {
-                    // Handle any other exceptions here
-                    MessageBox.Show($"An error occurred: {ex.Message}");
-                }
-                finally
-                {
-                    stopwatch.Stop();
-
-                    long elapsedTime = stopwatch.ElapsedMilliseconds;
-
-                    if (elapsedTime < bestElapsedTime)
-                    {
-                        bestElapsedTime = elapsedTime;
-                        bestBufferSize = bufferSize;
-                    }
-
-                    if (File.Exists(testFilePath))
-                        File.Delete(testFilePath);
-                }
-            }
-
-            if (bestBufferSize > 0)
-            {
-                bufferSize = bestBufferSize;
-                BufferSizeLabel.Text = $"Buffersize: {bufferSize}";
+                bufferSize = tmpBuffer;
+                settings.Search_Buffer = tmpBuffer;
             }
         }
 
@@ -526,10 +524,11 @@ namespace Duplicate_Finder
         {
             if (treeView1.Nodes.Count < 1) { return; }
 
+            buttonSimulator.DisableButton(CancelButton);
             buttonSimulator.DisableButton(GetFilesButton);
             buttonSimulator.DisableButton(FolderBrowserButton);
 
-            OptimizeButton.Enabled = false;
+            buttonSimulator.DisableButton(SettingsButton);
             ActionSelectButton.Enabled = false;
 
             List<FileInfo> checkedFiles = GetCheckedFiles();
@@ -579,7 +578,7 @@ namespace Duplicate_Finder
             buttonSimulator.EnableButton(GetFilesButton);
             buttonSimulator.EnableButton(FolderBrowserButton);
 
-            OptimizeButton.Enabled = true;
+            buttonSimulator.EnableButton(SettingsButton);
             ActionSelectButton.Enabled = true;
         }
 
@@ -609,17 +608,35 @@ namespace Duplicate_Finder
 
         private void label1_MouseDown(object sender, MouseEventArgs e) => Core.Core.MoveWindow(this, e);
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            if (textBox1.Text != "") btnScan_Click(null, EventArgs.Empty);
-        }
-
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             using(SettingsForm form = new SettingsForm(this))
             {
                 form.ShowDialog();
             }
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "Waiting for a directory path...")
+            {
+                textBox1.Text = "";
+            }
+        }
+
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                textBox1.Text = "Waiting for a directory path...";
+            }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
+            lblProgress.Text = "Cancellation awaiting confirmation... Please wait...";
+            buttonSimulator.DisableButton(CancelButton);
         }
     }
 
@@ -636,4 +653,4 @@ namespace Duplicate_Finder
     }
 }
 
-
+// TODO: Fix the exclude of system files. Using settings windows path.

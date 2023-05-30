@@ -2,7 +2,7 @@
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 
-namespace Duplicate_Finder.UI
+namespace Duplicate_Finder.Module
 {
     internal class ButtonSimulator
     {
@@ -36,8 +36,10 @@ namespace Duplicate_Finder.UI
             pictureBox.Refresh();
         }
 
-        public void DisableButton(PictureBox pictureBoxButton)
+        public void DisableButton(PictureBox pictureBoxButton, bool hide = false)
         {
+            if(pictureBoxButton.Name == "GetFilesButton" && hide) pictureBoxButton.Visible = false;
+
             // Apply the grayscale effect to the button's image
             ApplyGrayscaleEffect(pictureBoxButton);
             pictureBoxButton.Enabled = false;
@@ -53,7 +55,19 @@ namespace Duplicate_Finder.UI
             }
             else if (pictureBoxButton.Name == "GetFilesButton")
             {
+                pictureBoxButton.BringToFront();
                 pictureBoxButton.Image = Properties.Resources.play_button;
+                pictureBoxButton.Visible = true;
+            }
+            else if (pictureBoxButton.Name == "SettingsButton")
+            {
+                pictureBoxButton.Image = Properties.Resources._003_cogwheel;
+            }
+            else if(pictureBoxButton.Name == "CancelButton")
+            {
+                pictureBoxButton.Image = Properties.Resources.stop;
+                pictureBoxButton.BringToFront();
+                pictureBoxButton.Visible = true;
             }
 
             pictureBoxButton.Enabled = true;
