@@ -27,7 +27,7 @@ Duplicate File Finder is a valuable tool for anyone looking to declutter their s
 
 This project is licensed under the [MIT License](LICENSE).
 
-© [N0tiC](https://github.com/n0tic) at ByteValut Studio
+© [N0tiC](https://github.com/n0tic) at [ByteVault Studio](https://bytevaultstudio.se/)
 
 If you make modifications or use my code, please credit. It's always nice to see =)
 
