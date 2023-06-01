@@ -307,6 +307,12 @@ namespace Duplicate_Finder
 
             // Filter out the duplicate groups containing more than one file
             duplicateGroups = potentialDuplicates.Where(g => g.FilePaths.Count > 1).ToList();
+
+            int totalDuplicates = duplicateGroups.Sum(g => g.FilePaths.Count - 1);
+
+            progressBar1.Invoke((MethodInvoker)(() => {
+                PossibleDuplicatesLabel.Text = $"Possible Duplicates:{Environment.NewLine}{totalDuplicates}";
+            }));
         }
 
         private bool CheckFilters_continue(FileInfo fileInfo)
