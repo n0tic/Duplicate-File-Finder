@@ -8,10 +8,12 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Duplicate_Finder
@@ -50,7 +52,7 @@ namespace Duplicate_Finder
             treeView1.Select();
             treeView1.Focus();
 
-            LoadingIndicator.Visible = false;
+            ProgressBox.Visible = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -75,9 +77,8 @@ namespace Duplicate_Finder
                 return;
             }
 
-            LoadingIndicator.Visible = true;
+            ProgressBox.Visible = true;
             progressBar1.Visible = true;
-            progressBar1.Style = ProgressBarStyle.Marquee;
 
             if (settings.Search_AutoOptimize) OptimizeScan_Click(null, EventArgs.Empty);
 
@@ -90,8 +91,6 @@ namespace Duplicate_Finder
 
             ResetTreeView();
             SaveSpaceLabel.Text = "";
-            progressBar1.Maximum = 0;
-            progressBar1.Value = 0;
             lblProgress.Text = "Scanning for duplicates...";
 
             cancellationTokenSource = new CancellationTokenSource();
@@ -112,7 +111,7 @@ namespace Duplicate_Finder
             }
             finally
             {
-                LoadingIndicator.Visible = false;
+                ProgressBox.Visible = false;
 
                 buttonSimulator.DisableButton(CancelButton);
                 buttonSimulator.EnableButton(GetFilesButton);
@@ -122,7 +121,6 @@ namespace Duplicate_Finder
                 ActionSelectButton.Enabled = true;
 
                 progressBar1.Visible = false;
-                progressBar1.Value = 0;
 
                 treeView1.ExpandAll();
 
@@ -147,38 +145,94 @@ namespace Duplicate_Finder
             filePath = "";
         }
 
-        private bool AreFilesIdentical(string filePath1, string filePath2)
+        private bool AreFilesIdentical(string filePath1, string filePath2, CancellationToken cancellationToken)
         {
-            var fileInfo1 = new FileInfo(filePath1);
-            var fileInfo2 = new FileInfo(filePath2);
-
-            if (fileInfo1.Length != fileInfo2.Length)
+            try
             {
-                return false;
-            }
+                var fileInfo1 = new FileInfo(filePath1);
+                var fileInfo2 = new FileInfo(filePath2);
 
-            using (var md5 = MD5.Create())
-            using (var stream1 = File.OpenRead(filePath1))
-            using (var stream2 = File.OpenRead(filePath2))
-            {
-                byte[] buffer1 = new byte[bufferSize];
-                byte[] buffer2 = new byte[bufferSize];
-
-                int bytesRead1;
-                int bytesRead2;
-
-                do
+                if (fileInfo1.Length != fileInfo2.Length)
                 {
-                    bytesRead1 = stream1.Read(buffer1, 0, bufferSize);
-                    bytesRead2 = stream2.Read(buffer2, 0, bufferSize);
+                    return false;
+                }
 
-                    if (bytesRead1 != bytesRead2 || !buffer1.Take(bytesRead1).SequenceEqual(buffer2.Take(bytesRead2)))
+                using (var md5 = MD5.Create())
+                using (var stream1 = System.IO.File.OpenRead(filePath1))
+                using (var stream2 = System.IO.File.OpenRead(filePath2))
+                {
+                    byte[] buffer1 = new byte[bufferSize];
+                    byte[] buffer2 = new byte[bufferSize];
+
+                    int bytesRead1;
+                    int bytesRead2;
+                    long totalBytesRead = 0;
+                    double progressPercentage = 0;
+                    TimeSpan elapsedTime = TimeSpan.Zero;
+
+                    Stopwatch stopwatch = Stopwatch.StartNew();
+
+                    do
                     {
-                        return false;
-                    }
-                } while (bytesRead1 > 0);
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            // The scanning process was cancelled
+                            return false;
+                        }
 
-                return true;
+
+                        bytesRead1 = stream1.Read(buffer1, 0, bufferSize);
+                        bytesRead2 = stream2.Read(buffer2, 0, bufferSize);
+
+                        totalBytesRead += bytesRead1;
+
+                        if (bytesRead1 != bytesRead2 || !buffer1.Take(bytesRead1).SequenceEqual(buffer2.Take(bytesRead2)))
+                        {
+                            return false;
+                        }
+
+                        progressPercentage = (double)totalBytesRead / fileInfo1.Length * 100;
+
+                        //Console.WriteLine(progressPercentage);
+
+                        progressx.Invoke((MethodInvoker)(() => {
+                            progressx.Maximum = 100;
+                            progressx.Value = (int)progressPercentage;
+                        }));
+
+                        // Calculate estimated remaining time
+                        if (totalBytesRead > 0)
+                        {
+                            TimeSpan remainingTime = TimeSpan.Zero;
+                            elapsedTime = stopwatch.Elapsed;
+
+                            double bytesPerMillisecond = totalBytesRead / elapsedTime.TotalMilliseconds;
+                            long remainingBytes = fileInfo1.Length - totalBytesRead;
+                            double remainingMilliseconds = remainingBytes / bytesPerMillisecond;
+
+                            remainingTime = TimeSpan.FromMilliseconds(remainingMilliseconds);
+
+                            double remainingSeconds = (int)remainingTime.TotalSeconds;
+
+                            RemainingTimeLabel.Invoke((MethodInvoker)(() => {
+                                RemainingTimeLabel.Text = "Remaining time: " + remainingSeconds + " seconds";
+                            }));
+                        }
+
+                    } while (bytesRead1 > 0);
+
+                    stopwatch.Stop();
+                    TimeSpan totalTime = stopwatch.Elapsed;
+                    Console.WriteLine("Total time: " + totalTime);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or display an error message
+                Console.WriteLine($"Error comparing files: {ex.Message}");
+                throw; // Rethrow the exception to aid in debugging
             }
         }
 
@@ -187,49 +241,27 @@ namespace Duplicate_Finder
             List<string> fileList = GetAllFiles(folderPath, cancellationToken);
             List<FileInfo> files = fileList.Select(f => new FileInfo(f)).ToList();
 
-            progressBar1.Invoke((MethodInvoker)(() =>
-            {
-                progressBar1.Maximum = files.Count;
+            progressBar1.Invoke((MethodInvoker)(() => {
                 TotalFilesLabel.Text = $"Total Files Found:{Environment.NewLine}{files.Count}";
-                progressBar1.Style = ProgressBarStyle.Blocks;
             }));
 
+            GetPotentialDuplicates(files, cancellationToken);
+
+            // Compare files within the duplicate groups using more accurate methods (e.g., hash comparison)
+            if(settings.Search_Content)
+            {
+                CompareDuplicateGroups(cancellationToken);
+            }
+        }
+
+        private void GetPotentialDuplicates(List<FileInfo> files, CancellationToken cancellationToken)
+        {
             List<DuplicateGroup> potentialDuplicates = new List<DuplicateGroup>();
 
             foreach (FileInfo fileInfo in files)
             {
 
-                if(settings.Search_Ignore_FileSizeUnder)
-                {
-                    if(fileInfo.Length < 1048576 * settings.Search_Ignore_FileSizeUnderMB)
-                    {
-                        continue;
-                    }
-                }
-
-                if (settings.Search_Ignore_ZeroByteFile)
-                {
-                    if (fileInfo.Length < 1)
-                    {
-                        continue;
-                    }
-                }
-
-                if (settings.Search_Ignore_HiddenFiles)
-                {
-                    if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
-                    {
-                        continue;
-                    }
-                }
-
-                if (settings.Search_Ignore_SystemFiles)
-                {
-                    if (fileInfo.FullName.StartsWith(settings.windowsDirectory, StringComparison.OrdinalIgnoreCase))
-                    {
-                        continue;
-                    }
-                }
+                if(CheckFilters_continue(fileInfo)) { continue; }
 
                 if (cancellationToken.IsCancellationRequested)
                 {
@@ -246,7 +278,13 @@ namespace Duplicate_Finder
                     // Compare the file with potential duplicates within the same size group
                     foreach (string filePath in group.FilePaths)
                     {
-                        if (AreFilesIdentical(fileInfo.FullName, filePath))
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            // The scanning process was cancelled
+                            return;
+                        }
+
+                        if(fileInfo.Length == new FileInfo(filePath).Length)
                         {
                             group.FilePaths.Add(fileInfo.FullName);
                             break;
@@ -261,21 +299,53 @@ namespace Duplicate_Finder
                     potentialDuplicates.Add(group);
                 }
 
-                progressBar1.Invoke((MethodInvoker)(() =>
-                {
-                    progressBar1.Value = progressBar1.Value + 1;
-                    lblProgress.Text = $"Processing file: {fileInfo.Name}";
+                progressBar1.Invoke((MethodInvoker)(() => {
+                    lblProgress.Text = $"File: {fileInfo.Name}";
                 }));
             }
 
             // Filter out the duplicate groups containing more than one file
             duplicateGroups = potentialDuplicates.Where(g => g.FilePaths.Count > 1).ToList();
-
-            // Compare files within the duplicate groups using more accurate methods (e.g., hash comparison)
-            CompareDuplicateGroups();
         }
 
-        private void CompareDuplicateGroups()
+        private bool CheckFilters_continue(FileInfo fileInfo)
+        {
+            if (settings.Search_Ignore_FileSizeUnder)
+            {
+                if (fileInfo.Length < 1048576 * settings.Search_Ignore_FileSizeUnderMB)
+                {
+                    return true;
+                }
+            }
+
+            if (settings.Search_Ignore_ZeroByteFile)
+            {
+                if (fileInfo.Length < 1)
+                {
+                    return true;
+                }
+            }
+
+            if (settings.Search_Ignore_HiddenFiles)
+            {
+                if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                {
+                    return true;
+                }
+            }
+
+            if (settings.Search_Ignore_SystemFiles)
+            {
+                if (fileInfo.FullName.StartsWith(settings.windowsDirectory, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void CompareDuplicateGroups(CancellationToken cancellationToken)
         {
             int totalPossibleDuplicates = 0;
             int totalPositiveDuplicates = 0;
@@ -297,7 +367,7 @@ namespace Duplicate_Finder
                     {
                         string filePath2 = group.FilePaths[j];
 
-                        if (AreFilesIdentical(filePath1, filePath2))
+                        if (AreFilesIdentical(filePath1, filePath2, cancellationToken))
                         {
                             isPositiveDuplicate = true;
                             break;

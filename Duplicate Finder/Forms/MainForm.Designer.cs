@@ -54,14 +54,17 @@
             this.NameLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.CancelButton = new System.Windows.Forms.PictureBox();
+            this.ProgressBox = new System.Windows.Forms.GroupBox();
+            this.progressx = new System.Windows.Forms.ProgressBar();
             this.LoadingIndicator = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.FolderBrowserButton = new System.Windows.Forms.PictureBox();
             this.GetFilesButton = new System.Windows.Forms.PictureBox();
+            this.CancelButton = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.RemainingTimeLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsButton)).BeginInit();
@@ -69,13 +72,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.MaximizeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CancelButton)).BeginInit();
+            this.ProgressBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoadingIndicator)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FolderBrowserButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GetFilesButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CancelButton)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -84,7 +88,8 @@
             this.progressBar1.Location = new System.Drawing.Point(0, 0);
             this.progressBar1.MarqueeAnimationSpeed = 1;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(799, 13);
+            this.progressBar1.Size = new System.Drawing.Size(799, 10);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 0;
             // 
             // textBox1
@@ -104,7 +109,7 @@
             this.TotalFilesLabel.ForeColor = System.Drawing.Color.White;
             this.TotalFilesLabel.Location = new System.Drawing.Point(0, 0);
             this.TotalFilesLabel.Name = "TotalFilesLabel";
-            this.TotalFilesLabel.Size = new System.Drawing.Size(127, 32);
+            this.TotalFilesLabel.Size = new System.Drawing.Size(127, 56);
             this.TotalFilesLabel.TabIndex = 7;
             this.TotalFilesLabel.Text = "Total Files Found:\r\n0";
             this.TotalFilesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -117,7 +122,7 @@
             this.PossibleDuplicatesLabel.ForeColor = System.Drawing.Color.White;
             this.PossibleDuplicatesLabel.Location = new System.Drawing.Point(0, 0);
             this.PossibleDuplicatesLabel.Name = "PossibleDuplicatesLabel";
-            this.PossibleDuplicatesLabel.Size = new System.Drawing.Size(127, 32);
+            this.PossibleDuplicatesLabel.Size = new System.Drawing.Size(127, 56);
             this.PossibleDuplicatesLabel.TabIndex = 8;
             this.PossibleDuplicatesLabel.Text = "Possible Duplicates:\r\n0";
             this.PossibleDuplicatesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -139,20 +144,20 @@
             // 
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treeView1.CheckBoxes = true;
-            this.treeView1.Location = new System.Drawing.Point(11, 100);
+            this.treeView1.Location = new System.Drawing.Point(11, 107);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(468, 296);
+            this.treeView1.Size = new System.Drawing.Size(468, 289);
             this.treeView1.TabIndex = 1;
             this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // lblProgress
             // 
-            this.lblProgress.Location = new System.Drawing.Point(8, 43);
+            this.lblProgress.Location = new System.Drawing.Point(3, 46);
             this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(753, 12);
+            this.lblProgress.Size = new System.Drawing.Size(328, 12);
             this.lblProgress.TabIndex = 11;
-            this.lblProgress.Text = "Progress";
+            this.lblProgress.Text = "Processing file:";
             // 
             // PositiveDuplicateLabel
             // 
@@ -161,7 +166,7 @@
             this.PositiveDuplicateLabel.ForeColor = System.Drawing.Color.White;
             this.PositiveDuplicateLabel.Location = new System.Drawing.Point(0, 0);
             this.PositiveDuplicateLabel.Name = "PositiveDuplicateLabel";
-            this.PositiveDuplicateLabel.Size = new System.Drawing.Size(127, 32);
+            this.PositiveDuplicateLabel.Size = new System.Drawing.Size(127, 56);
             this.PositiveDuplicateLabel.TabIndex = 14;
             this.PositiveDuplicateLabel.Text = "Positive Duplicates:\r\n0";
             this.PositiveDuplicateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -173,9 +178,9 @@
             this.groupBox1.Controls.Add(this.FileTypeLabel);
             this.groupBox1.Controls.Add(this.FileSizeLabel);
             this.groupBox1.Controls.Add(this.FileNameLabel);
-            this.groupBox1.Location = new System.Drawing.Point(485, 94);
+            this.groupBox1.Location = new System.Drawing.Point(485, 101);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(302, 303);
+            this.groupBox1.Size = new System.Drawing.Size(302, 296);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selected File Info";
@@ -185,7 +190,7 @@
             this.FileFullPathLabel.ForeColor = System.Drawing.SystemColors.Highlight;
             this.FileFullPathLabel.Location = new System.Drawing.Point(6, 55);
             this.FileFullPathLabel.Name = "FileFullPathLabel";
-            this.FileFullPathLabel.Size = new System.Drawing.Size(290, 240);
+            this.FileFullPathLabel.Size = new System.Drawing.Size(290, 238);
             this.FileFullPathLabel.TabIndex = 3;
             this.FileFullPathLabel.Click += new System.EventHandler(this.FileFullPathLabel_Click);
             // 
@@ -278,7 +283,7 @@
             this.VersionLabel.AutoSize = true;
             this.VersionLabel.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VersionLabel.ForeColor = System.Drawing.Color.White;
-            this.VersionLabel.Location = new System.Drawing.Point(204, 10);
+            this.VersionLabel.Location = new System.Drawing.Point(204, 9);
             this.VersionLabel.Name = "VersionLabel";
             this.VersionLabel.Size = new System.Drawing.Size(129, 15);
             this.VersionLabel.TabIndex = 4;
@@ -337,7 +342,6 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Controls.Add(this.LoadingIndicator);
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.panel2);
@@ -351,33 +355,39 @@
             this.panel3.Controls.Add(this.ActionSelectButton);
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.treeView1);
-            this.panel3.Controls.Add(this.lblProgress);
             this.panel3.Controls.Add(this.CancelButton);
+            this.panel3.Controls.Add(this.ProgressBox);
             this.panel3.Location = new System.Drawing.Point(1, 26);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(799, 426);
             this.panel3.TabIndex = 23;
             // 
-            // CancelButton
+            // ProgressBox
             // 
-            this.CancelButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CancelButton.Image = global::Duplicate_Finder.Properties.Resources.stop;
-            this.CancelButton.Location = new System.Drawing.Point(767, 17);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(20, 20);
-            this.CancelButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.CancelButton.TabIndex = 23;
-            this.CancelButton.TabStop = false;
-            this.toolTip1.SetToolTip(this.CancelButton, "Start scan process");
-            this.CancelButton.Visible = false;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.ProgressBox.Controls.Add(this.RemainingTimeLabel);
+            this.ProgressBox.Controls.Add(this.progressx);
+            this.ProgressBox.Controls.Add(this.LoadingIndicator);
+            this.ProgressBox.Controls.Add(this.lblProgress);
+            this.ProgressBox.Location = new System.Drawing.Point(410, 38);
+            this.ProgressBox.Name = "ProgressBox";
+            this.ProgressBox.Size = new System.Drawing.Size(377, 62);
+            this.ProgressBox.TabIndex = 25;
+            this.ProgressBox.TabStop = false;
+            this.ProgressBox.Text = "Progress:";
+            // 
+            // progressx
+            // 
+            this.progressx.Location = new System.Drawing.Point(6, 30);
+            this.progressx.Name = "progressx";
+            this.progressx.Size = new System.Drawing.Size(325, 14);
+            this.progressx.TabIndex = 24;
             // 
             // LoadingIndicator
             // 
             this.LoadingIndicator.Image = global::Duplicate_Finder.Properties.Resources.Dual_Ring_0_4s_204px;
-            this.LoadingIndicator.Location = new System.Drawing.Point(767, 40);
+            this.LoadingIndicator.Location = new System.Drawing.Point(337, 21);
             this.LoadingIndicator.Name = "LoadingIndicator";
-            this.LoadingIndicator.Size = new System.Drawing.Size(20, 20);
+            this.LoadingIndicator.Size = new System.Drawing.Size(31, 31);
             this.LoadingIndicator.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.LoadingIndicator.TabIndex = 22;
             this.LoadingIndicator.TabStop = false;
@@ -386,27 +396,27 @@
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(184)))), ((int)(((byte)(222)))));
             this.panel5.Controls.Add(this.PositiveDuplicateLabel);
-            this.panel5.Location = new System.Drawing.Point(277, 62);
+            this.panel5.Location = new System.Drawing.Point(277, 43);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(127, 32);
+            this.panel5.Size = new System.Drawing.Size(127, 56);
             this.panel5.TabIndex = 21;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(203)))), ((int)(((byte)(233)))));
             this.panel4.Controls.Add(this.PossibleDuplicatesLabel);
-            this.panel4.Location = new System.Drawing.Point(144, 62);
+            this.panel4.Location = new System.Drawing.Point(144, 43);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(127, 32);
+            this.panel4.Size = new System.Drawing.Size(127, 56);
             this.panel4.TabIndex = 20;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(184)))), ((int)(((byte)(222)))));
             this.panel2.Controls.Add(this.TotalFilesLabel);
-            this.panel2.Location = new System.Drawing.Point(11, 62);
+            this.panel2.Location = new System.Drawing.Point(11, 43);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(127, 32);
+            this.panel2.Size = new System.Drawing.Size(127, 56);
             this.panel2.TabIndex = 19;
             // 
             // FolderBrowserButton
@@ -435,6 +445,28 @@
             this.toolTip1.SetToolTip(this.GetFilesButton, "Start scan process");
             this.GetFilesButton.Click += new System.EventHandler(this.btnScan_Click);
             // 
+            // CancelButton
+            // 
+            this.CancelButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CancelButton.Image = global::Duplicate_Finder.Properties.Resources.stop;
+            this.CancelButton.Location = new System.Drawing.Point(767, 17);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(20, 20);
+            this.CancelButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.CancelButton.TabIndex = 23;
+            this.CancelButton.TabStop = false;
+            this.toolTip1.SetToolTip(this.CancelButton, "Start scan process");
+            this.CancelButton.Visible = false;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // RemainingTimeLabel
+            // 
+            this.RemainingTimeLabel.Location = new System.Drawing.Point(3, 16);
+            this.RemainingTimeLabel.Name = "RemainingTimeLabel";
+            this.RemainingTimeLabel.Size = new System.Drawing.Size(325, 12);
+            this.RemainingTimeLabel.TabIndex = 25;
+            this.RemainingTimeLabel.Text = "Time Remaining:";
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -460,13 +492,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CancelButton)).EndInit();
+            this.ProgressBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LoadingIndicator)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FolderBrowserButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GetFilesButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CancelButton)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -505,5 +538,8 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox LoadingIndicator;
         private System.Windows.Forms.PictureBox CancelButton;
+        private System.Windows.Forms.ProgressBar progressx;
+        private System.Windows.Forms.GroupBox ProgressBox;
+        private System.Windows.Forms.Label RemainingTimeLabel;
     }
 }

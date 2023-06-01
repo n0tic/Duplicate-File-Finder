@@ -52,9 +52,6 @@ namespace Duplicate_Finder.Forms
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            NameCheckbox.Checked = mainForm.settings.Search_Name;
-            SizeCheckbox.Checked = mainForm.settings.Search_Size;
-            ModifiedDateCheckbox.Checked = mainForm.settings.Search_ModifiedDate;
             ContentCheckbox.Checked = mainForm.settings.Search_Content;
 
             ZeroByteFileCheckbox.Checked = mainForm.settings.Search_Ignore_ZeroByteFile;
@@ -98,9 +95,6 @@ namespace Duplicate_Finder.Forms
             mainForm.settings.Search_Ignore_ZeroByteFile = ZeroByteFileCheckbox.Checked;
 
             mainForm.settings.Search_Content = ContentCheckbox.Checked;
-            mainForm.settings.Search_ModifiedDate = ModifiedDateCheckbox.Checked;
-            mainForm.settings.Search_Size = SizeCheckbox.Checked;
-            mainForm.settings.Search_Name = NameCheckbox.Checked;
 
             mainForm.settings.SaveSettings();
 

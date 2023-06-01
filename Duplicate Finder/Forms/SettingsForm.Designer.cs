@@ -48,10 +48,7 @@
             this.ReadOnlyFilesCheckbox = new System.Windows.Forms.CheckBox();
             this.SystemFilesCheckbox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.NameCheckbox = new System.Windows.Forms.CheckBox();
             this.ContentCheckbox = new System.Windows.Forms.CheckBox();
-            this.ModifiedDateCheckbox = new System.Windows.Forms.CheckBox();
-            this.SizeCheckbox = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ExitButton = new System.Windows.Forms.PictureBox();
             this.NameLabel = new System.Windows.Forms.Label();
@@ -292,10 +289,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.NameCheckbox);
             this.groupBox1.Controls.Add(this.ContentCheckbox);
-            this.groupBox1.Controls.Add(this.ModifiedDateCheckbox);
-            this.groupBox1.Controls.Add(this.SizeCheckbox);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(342, 48);
@@ -303,45 +297,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Match by";
             // 
-            // NameCheckbox
-            // 
-            this.NameCheckbox.AutoSize = true;
-            this.NameCheckbox.Location = new System.Drawing.Point(8, 19);
-            this.NameCheckbox.Name = "NameCheckbox";
-            this.NameCheckbox.Size = new System.Drawing.Size(54, 17);
-            this.NameCheckbox.TabIndex = 20;
-            this.NameCheckbox.Text = "Name";
-            this.NameCheckbox.UseVisualStyleBackColor = true;
-            // 
             // ContentCheckbox
             // 
             this.ContentCheckbox.AutoSize = true;
-            this.ContentCheckbox.Location = new System.Drawing.Point(214, 18);
+            this.ContentCheckbox.Location = new System.Drawing.Point(9, 19);
             this.ContentCheckbox.Name = "ContentCheckbox";
-            this.ContentCheckbox.Size = new System.Drawing.Size(126, 17);
+            this.ContentCheckbox.Size = new System.Drawing.Size(185, 17);
             this.ContentCheckbox.TabIndex = 23;
-            this.ContentCheckbox.Text = "Content (Hash, Slow)";
+            this.ContentCheckbox.Text = "Content (Best, Slow but accurate)";
             this.ContentCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // ModifiedDateCheckbox
-            // 
-            this.ModifiedDateCheckbox.AutoSize = true;
-            this.ModifiedDateCheckbox.Location = new System.Drawing.Point(120, 19);
-            this.ModifiedDateCheckbox.Name = "ModifiedDateCheckbox";
-            this.ModifiedDateCheckbox.Size = new System.Drawing.Size(90, 17);
-            this.ModifiedDateCheckbox.TabIndex = 22;
-            this.ModifiedDateCheckbox.Text = "Modified date";
-            this.ModifiedDateCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // SizeCheckbox
-            // 
-            this.SizeCheckbox.AutoSize = true;
-            this.SizeCheckbox.Location = new System.Drawing.Point(68, 19);
-            this.SizeCheckbox.Name = "SizeCheckbox";
-            this.SizeCheckbox.Size = new System.Drawing.Size(46, 17);
-            this.SizeCheckbox.TabIndex = 21;
-            this.SizeCheckbox.Text = "Size";
-            this.SizeCheckbox.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -416,10 +380,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.CheckBox ContentCheckbox;
-        private System.Windows.Forms.CheckBox ModifiedDateCheckbox;
-        private System.Windows.Forms.CheckBox SizeCheckbox;
-        private System.Windows.Forms.CheckBox NameCheckbox;
         private System.Windows.Forms.CheckBox AutoOptimizeCheckbox;
         private System.Windows.Forms.Button OptimizeButton;
         private System.Windows.Forms.Panel panel1;
@@ -442,5 +402,6 @@
         private System.Windows.Forms.NumericUpDown BufferSizeNumber;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox ContentCheckbox;
     }
 }

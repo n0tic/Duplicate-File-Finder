@@ -11,9 +11,6 @@ namespace Duplicate_Finder.Data
     {
         public string windowsDirectory = Path.GetDirectoryName(Environment.SystemDirectory);
 
-        public bool Search_Name { get; set; } = false;
-        public bool Search_Size { get; set; } = true;
-        public bool Search_ModifiedDate { get; set; } = false;
         public bool Search_Content { get; set; } = true;
 
         public bool Search_Ignore_ZeroByteFile { get; set; } = true;
