@@ -28,6 +28,8 @@ namespace Duplicate_Finder
         List<DuplicateGroup> duplicateGroups;
         public int bufferSize = 1024;
 
+        public int totalTime = 0;
+
         string filePath = "";
 
         public MainForm(string path)
@@ -40,6 +42,7 @@ namespace Duplicate_Finder
 
             SaveSpaceLabel.Text = "";
             lblProgress.Text = "";
+            TotalTimeLabel.Text = $"";
 
             NameLabel.Text = Core.Core.ApplicationName;
             VersionLabel.Text = Core.Core.Version;
@@ -92,6 +95,9 @@ namespace Duplicate_Finder
             ResetTreeView();
             SaveSpaceLabel.Text = "";
             lblProgress.Text = "Scanning for duplicates...";
+            TotalTimeLabel.Text = $"";
+
+            totalTime = 0;
 
             cancellationTokenSource = new CancellationTokenSource();
             duplicateGroups.Clear();
@@ -128,6 +134,8 @@ namespace Duplicate_Finder
                 {
                     treeView1.Nodes.Add(new TreeNode("No duplicates found!"));
                 }
+
+                if(totalTime > 0) TotalTimeLabel.Text = $"Total Time: {totalTime} seconds";
 
                 MessageBox.Show("The process of finding duplicates has finished.", "Process Finished!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -222,8 +230,8 @@ namespace Duplicate_Finder
                     } while (bytesRead1 > 0);
 
                     stopwatch.Stop();
-                    TimeSpan totalTime = stopwatch.Elapsed;
-                    Console.WriteLine("Total time: " + totalTime);
+                    TimeSpan time = stopwatch.Elapsed;
+                    totalTime += (int)time.TotalSeconds;
 
                     return true;
                 }
@@ -312,6 +320,11 @@ namespace Duplicate_Finder
 
             progressBar1.Invoke((MethodInvoker)(() => {
                 PossibleDuplicatesLabel.Text = $"Possible Duplicates:{Environment.NewLine}{totalDuplicates}";
+            }));
+
+            PositiveDuplicateLabel.Invoke((MethodInvoker)(() =>
+            {
+                PositiveDuplicateLabel.Text = $"Positive Duplicates:{Environment.NewLine}0";
             }));
         }
 

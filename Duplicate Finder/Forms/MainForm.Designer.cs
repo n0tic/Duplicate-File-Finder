@@ -65,6 +65,7 @@
             this.CancelButton = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.RemainingTimeLabel = new System.Windows.Forms.Label();
+            this.TotalTimeLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SettingsButton)).BeginInit();
@@ -158,6 +159,7 @@
             this.lblProgress.Size = new System.Drawing.Size(328, 12);
             this.lblProgress.TabIndex = 11;
             this.lblProgress.Text = "Processing file:";
+            this.toolTip1.SetToolTip(this.lblProgress, "Current file being processed");
             // 
             // PositiveDuplicateLabel
             // 
@@ -170,7 +172,8 @@
             this.PositiveDuplicateLabel.TabIndex = 14;
             this.PositiveDuplicateLabel.Text = "Positive Duplicates:\r\n0";
             this.PositiveDuplicateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.PositiveDuplicateLabel, "Total positive duplicate files found");
+            this.toolTip1.SetToolTip(this.PositiveDuplicateLabel, "Total positive duplicate files found. This is only produced with Content filter a" +
+        "s it is most accurate.");
             // 
             // groupBox1
             // 
@@ -357,6 +360,7 @@
             this.panel3.Controls.Add(this.treeView1);
             this.panel3.Controls.Add(this.CancelButton);
             this.panel3.Controls.Add(this.ProgressBox);
+            this.panel3.Controls.Add(this.TotalTimeLabel);
             this.panel3.Location = new System.Drawing.Point(1, 26);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(799, 426);
@@ -381,6 +385,7 @@
             this.progressx.Name = "progressx";
             this.progressx.Size = new System.Drawing.Size(325, 14);
             this.progressx.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.progressx, "Current file progress");
             // 
             // LoadingIndicator
             // 
@@ -466,6 +471,16 @@
             this.RemainingTimeLabel.Size = new System.Drawing.Size(325, 12);
             this.RemainingTimeLabel.TabIndex = 25;
             this.RemainingTimeLabel.Text = "Getting files...";
+            this.toolTip1.SetToolTip(this.RemainingTimeLabel, "Status and Time remaining");
+            // 
+            // TotalTimeLabel
+            // 
+            this.TotalTimeLabel.Location = new System.Drawing.Point(485, 80);
+            this.TotalTimeLabel.Name = "TotalTimeLabel";
+            this.TotalTimeLabel.Size = new System.Drawing.Size(301, 18);
+            this.TotalTimeLabel.TabIndex = 26;
+            this.TotalTimeLabel.Text = "Total Time: ";
+            this.TotalTimeLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // MainForm
             // 
@@ -541,5 +556,6 @@
         private System.Windows.Forms.ProgressBar progressx;
         private System.Windows.Forms.GroupBox ProgressBox;
         private System.Windows.Forms.Label RemainingTimeLabel;
+        private System.Windows.Forms.Label TotalTimeLabel;
     }
 }
