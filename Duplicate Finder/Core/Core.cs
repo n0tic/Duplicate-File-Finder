@@ -7,7 +7,7 @@ namespace Duplicate_Finder.Core
     {
 
         public static string ApplicationName = "Duplicate File Finder";
-        public static string Version = "v0.0.1a";
+        public static string Version = "v0.0.2a";
 
         #region Move Window
 
