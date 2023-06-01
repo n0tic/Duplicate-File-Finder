@@ -465,7 +465,7 @@
             this.RemainingTimeLabel.Name = "RemainingTimeLabel";
             this.RemainingTimeLabel.Size = new System.Drawing.Size(325, 12);
             this.RemainingTimeLabel.TabIndex = 25;
-            this.RemainingTimeLabel.Text = "Time Remaining:";
+            this.RemainingTimeLabel.Text = "Getting files...";
             // 
             // MainForm
             // 

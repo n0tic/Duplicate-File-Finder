@@ -243,6 +243,7 @@ namespace Duplicate_Finder
 
             progressBar1.Invoke((MethodInvoker)(() => {
                 TotalFilesLabel.Text = $"Total Files Found:{Environment.NewLine}{files.Count}";
+                RemainingTimeLabel.Text = "Please wait. This will only take a moment...";
             }));
 
             GetPotentialDuplicates(files, cancellationToken);
