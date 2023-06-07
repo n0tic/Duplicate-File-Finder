@@ -38,7 +38,7 @@ namespace Duplicate_Finder.Module
 
         public void DisableButton(PictureBox pictureBoxButton, bool hide = false)
         {
-            if(pictureBoxButton.Name == "GetFilesButton" && hide) pictureBoxButton.Visible = false;
+            if (pictureBoxButton.Name == "GetFilesButton" && hide) pictureBoxButton.Visible = false;
 
             // Apply the grayscale effect to the button's image
             ApplyGrayscaleEffect(pictureBoxButton);
@@ -63,7 +63,7 @@ namespace Duplicate_Finder.Module
             {
                 pictureBoxButton.Image = Properties.Resources._003_cogwheel;
             }
-            else if(pictureBoxButton.Name == "CancelButton")
+            else if (pictureBoxButton.Name == "CancelButton")
             {
                 pictureBoxButton.Image = Properties.Resources.stop;
                 pictureBoxButton.BringToFront();

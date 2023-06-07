@@ -1,5 +1,4 @@
-﻿using Duplicate_Finder.Core;
-using Duplicate_Finder.Data;
+﻿using Duplicate_Finder.Data;
 using Duplicate_Finder.Forms;
 using Duplicate_Finder.Module;
 using System;
@@ -8,13 +7,10 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Duplicate_Finder
 {
@@ -22,7 +18,7 @@ namespace Duplicate_Finder
     {
         public SettingsData settings;
 
-        
+
         ButtonSimulator buttonSimulator = new ButtonSimulator();
         CancellationTokenSource cancellationTokenSource;
         List<DuplicateGroup> duplicateGroups;
@@ -50,7 +46,7 @@ namespace Duplicate_Finder
             progressBar1.Visible = false;
 
             settings = SettingsData.LoadSettings();
-            if(settings == null) settings = new SettingsData();
+            if (settings == null) settings = new SettingsData();
 
             treeView1.Select();
             treeView1.Focus();
@@ -130,12 +126,12 @@ namespace Duplicate_Finder
 
                 treeView1.ExpandAll();
 
-                if(treeView1.Nodes.Count < 1)
+                if (treeView1.Nodes.Count < 1)
                 {
                     treeView1.Nodes.Add(new TreeNode("No duplicates found!"));
                 }
 
-                if(totalTime > 0) TotalTimeLabel.Text = $"Total Time: {totalTime} seconds";
+                if (totalTime > 0) TotalTimeLabel.Text = $"Total Time: {totalTime} seconds";
 
                 MessageBox.Show("The process of finding duplicates has finished.", "Process Finished!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -203,7 +199,8 @@ namespace Duplicate_Finder
 
                         //Console.WriteLine(progressPercentage);
 
-                        progressx.Invoke((MethodInvoker)(() => {
+                        progressx.Invoke((MethodInvoker)(() =>
+                        {
                             progressx.Maximum = 100;
                             progressx.Value = (int)progressPercentage;
                         }));
@@ -222,7 +219,8 @@ namespace Duplicate_Finder
 
                             double remainingSeconds = (int)remainingTime.TotalSeconds;
 
-                            RemainingTimeLabel.Invoke((MethodInvoker)(() => {
+                            RemainingTimeLabel.Invoke((MethodInvoker)(() =>
+                            {
                                 RemainingTimeLabel.Text = "Remaining time: " + remainingSeconds + " seconds";
                             }));
                         }
@@ -249,7 +247,8 @@ namespace Duplicate_Finder
             List<string> fileList = GetAllFiles(folderPath, cancellationToken);
             List<FileInfo> files = fileList.Select(f => new FileInfo(f)).ToList();
 
-            progressBar1.Invoke((MethodInvoker)(() => {
+            progressBar1.Invoke((MethodInvoker)(() =>
+            {
                 TotalFilesLabel.Text = $"Total Files Found:{Environment.NewLine}{files.Count}";
                 RemainingTimeLabel.Text = "Please wait. This will only take a moment...";
             }));
@@ -257,7 +256,7 @@ namespace Duplicate_Finder
             GetPotentialDuplicates(files, cancellationToken);
 
             // Compare files within the duplicate groups using more accurate methods (e.g., hash comparison)
-            if(settings.Search_Content)
+            if (settings.Search_Content)
             {
                 CompareDuplicateGroups(cancellationToken);
             }
@@ -270,7 +269,7 @@ namespace Duplicate_Finder
             foreach (FileInfo fileInfo in files)
             {
 
-                if(CheckFilters_continue(fileInfo)) { continue; }
+                if (CheckFilters_continue(fileInfo)) { continue; }
 
                 if (cancellationToken.IsCancellationRequested)
                 {
@@ -293,7 +292,7 @@ namespace Duplicate_Finder
                             return;
                         }
 
-                        if(fileInfo.Length == new FileInfo(filePath).Length)
+                        if (fileInfo.Length == new FileInfo(filePath).Length)
                         {
                             group.FilePaths.Add(fileInfo.FullName);
                             break;
@@ -308,7 +307,8 @@ namespace Duplicate_Finder
                     potentialDuplicates.Add(group);
                 }
 
-                progressBar1.Invoke((MethodInvoker)(() => {
+                progressBar1.Invoke((MethodInvoker)(() =>
+                {
                     lblProgress.Text = $"File: {fileInfo.Name}";
                 }));
             }
@@ -318,7 +318,8 @@ namespace Duplicate_Finder
 
             int totalDuplicates = duplicateGroups.Sum(g => g.FilePaths.Count - 1);
 
-            progressBar1.Invoke((MethodInvoker)(() => {
+            progressBar1.Invoke((MethodInvoker)(() =>
+            {
                 PossibleDuplicatesLabel.Text = $"Possible Duplicates:{Environment.NewLine}{totalDuplicates}";
             }));
 
@@ -553,7 +554,7 @@ namespace Duplicate_Finder
         {
             var tmpBuffer = BufferSizeTest.DOBufferSizeTest(textBox1.Text);
 
-            if(tmpBuffer > 0)
+            if (tmpBuffer > 0)
             {
                 bufferSize = tmpBuffer;
                 settings.Search_Buffer = tmpBuffer;
@@ -700,7 +701,7 @@ namespace Duplicate_Finder
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            using(SettingsForm form = new SettingsForm(this))
+            using (SettingsForm form = new SettingsForm(this))
             {
                 form.ShowDialog();
             }

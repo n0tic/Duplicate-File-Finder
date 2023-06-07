@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Duplicate_Finder.Module
 {
@@ -17,7 +12,7 @@ namespace Duplicate_Finder.Module
 
             if (!Directory.Exists(path))
             {
-                if(settings)
+                if (settings)
                 {
                     using (var folderDialog = new FolderBrowserDialog())
                     {
@@ -39,7 +34,7 @@ namespace Duplicate_Finder.Module
                     MessageBox.Show("You need to specify a directory in order to run the program.", "Invalid directory path!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return -1;
                 }
-                
+
             }
 
             string testFilePath = Path.Combine(path, "testfile.txt");
